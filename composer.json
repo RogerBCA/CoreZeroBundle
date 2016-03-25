@@ -1,5 +1,5 @@
 {
-    "name" : "RogerBCA/CoreZeroBundle",
+    "name" : "rogerbca/corezerobundle",
     "description" : "Base de dearrollo en symfony",
     "type" : "symfony-bundle",
     "authors" : [{
