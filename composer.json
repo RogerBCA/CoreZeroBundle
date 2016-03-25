@@ -13,7 +13,6 @@
         "MIT"
     ],
     "require" : {
-        "php": ">=5.5",
         "gedmo/doctrine-extensions": "^2.4",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "ircmaxell/password-compat": "^1.0",
