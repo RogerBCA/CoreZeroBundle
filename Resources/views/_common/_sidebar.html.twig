@@ -1,0 +1,43 @@
+{% if sidebar is defined %}
+<ul class="sidebar-menu control-ajax">
+    <li class="{% if request.get('_route') == 'admin_dashboard' %}active{% endif %}">
+        <a href="{{ path('admin_dashboard') }}" class="model-dashboard"><i class='fa fa-home'></i> <span>Escritorio</span></a>
+    </li>
+    {% for row in sidebar %}
+        {% if row.type is defined and row.type == 'tree' %}
+
+            {% set conjunto_path = [] %}
+            {% for key in row.interno|keys %}
+                {% set url_path = 'core_admin_'~key|lower %}
+                {% set conjunto_path = [url_path, url_path~'_create', url_path~'_new', url_path~'_edit', url_path~'_update', url_path~'_delete']|merge(conjunto_path) %}
+            {% endfor %}
+
+            <li class="treeview {% if request.get('_route') in conjunto_path %}active{% endif %}">
+                <a href="#">
+                    <i class='fa fa-{{ row.ico|default('terminal') }}'></i>
+                    <span>{{ row.label }}</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu {% if request.get('_route') in conjunto_path %}menu-open{% endif %}">
+                    {% for key,sub in row.interno %}
+                        {% set url_path = 'core_admin_'~key|lower %}
+                        {% set conjunto_path = [url_path, url_path~'_create', url_path~'_new', url_path~'_edit', url_path~'_update', url_path~'_delete'] %}
+                        <li class="{% if request.get('_route') in conjunto_path %}active{% endif %}">
+                            <a href="{{ path(conjunto_path|first) }}" class="model-{{ key }}">
+                                <i class="fa fa-{{ row.ico|default('terminal') }}"></i>
+                                {{ sub.label|default(key) }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% else %}
+            {% set url_path = 'core_admin_'~row.model|lower %}
+            {% set conjunto_path = [url_path, url_path~'_create', url_path~'_new', url_path~'_edit', url_path~'_update', url_path~'_delete'] %}
+            <li class="{% if request.get('_route') in conjunto_path %}active{% endif %}">
+                <a href="{{ path(conjunto_path|first) }}" class="model-{{ row.model }}"><i class='fa fa-{{ row.ico|default('terminal') }}'></i> <span>{{ row.label|default(row.model) }}</span></a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}

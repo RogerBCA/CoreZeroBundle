@@ -1,0 +1,9 @@
+var pathListFilemanager = '{{ path('admin-api-list-filemanager')|raw }}',
+    pathDeleteFilemanager = '{{ path('admin-api-delete')|raw }}',
+    pathCreateFolderFilemanager = '{{ path('admin-api-crear-carpeta')|raw }}',
+    PATH = '',
+    asset_url = '{{ asset('') }}',
+    unsaved = false,
+    url_upload = "{{ path('admin-api-upload')|raw }}",
+    msg_warning_form_no_saved = 'Usted no ha guardado los cambios.'
+    msg_dropzone = 'Arrastra uno ó varios archivos aquí.';

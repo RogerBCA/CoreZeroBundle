@@ -1,0 +1,9 @@
+CoreZeroAdministrator:
+    resource: "@AdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin-staff
+
+CoreZeroApi:
+    resource: "@CoreZeroBundle/Controller/"
+    type:     annotation
+    prefix:   /
