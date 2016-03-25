@@ -1,5 +1,5 @@
 {
-    "name" : "rogerbca/corezerobundle",
+    "name" : "rogerbca/corezero-bundle",
     "description" : "Base de desarrollo en symfony",
     "type" : "symfony-bundle",
     "authors" : [{
@@ -23,10 +23,5 @@
     },
     "autoload": {
         "psr-4": { "Core\\ZeroBundle\\": "" }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
     }
 }
