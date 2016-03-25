@@ -1,0 +1,74 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Iniciar sesión</title>
+    <!-- CORE CSS-->
+    {% set version_asset = '?v=1.11' %}
+    <link rel="stylesheet" href="{{ asset('bundles/corezero/pack/materialize/css/materialize.min.css')~version_asset }}">
+</head>
+
+<body class="grey lighten-3">
+    <div id="login-page" class="row">
+        <div class="col s12 m8 offset-m2 l4 offset-l4 card-panel hoverable">
+            <form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <img src="https://www.staffdigital.pe/static/img/logo-staffdigital.png" alt="" class="responsive-img valign profile-image-login">
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input id="username" type="text" class="validate" name="_username" value="{{ last_username }}">
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                        <i class="mdi-action-lock-outline prefix"></i>
+                        <input id="password" name="_password" type="password">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m12 l12  login-text">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn waves-effect waves-light col s12" type="submit" id="_submit" name="_submit">
+                            {{ 'security.login.submit'|trans }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <h6 class="center-align">
+                © {{ 'today'|date('Y') }} Desarrollado por <a href="https://www.staffdigital.pe/" target="_blank">staffdigital</a>
+            </h6>
+        </div>
+    </div>
+
+    <!-- ================================================
+    Scripts
+    ================================================ -->
+
+    <!-- jQuery Library -->
+    <script src="{{ asset('bundles/corezero/pack/jquery-2.2.2.min.js')~version_asset }}"></script>
+    <!--materialize js-->
+    <script src="{{ asset('bundles/corezero/pack/materialize/js/materialize.min.js')~version_asset }}"></script>
+
+    {% if error %}
+        <script type="text/javascript">
+            Materialize.toast('{{ error.messageKey|trans(error.messageData, 'security') }}', 4000)
+        </script>
+    {% endif %}
+
+</body>
+</html>
