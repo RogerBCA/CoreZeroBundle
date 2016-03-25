@@ -21,17 +21,12 @@
         "whiteoctober/tcpdf-bundle": "^1.0",
         "twig/extensions": "^1.3"
     },
-    "autoload" : {
-        "psr-0" : {
-            "RogerBCA\\Core\\ZeroBundle" : ""
+    "autoload": {
+        "psr-4": { "RogerBCA\\Core\\ZeroBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     },
-    "target-dir" : "RogerBCA/Core/ZeroBundle",
-    "repositories" : [{
-    }],
-    "extra" : {
-    "branch-alias" : {
-            "dev-master" : "1.0-dev"
-        }
-    }
 }
