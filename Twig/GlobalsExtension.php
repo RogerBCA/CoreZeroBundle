@@ -32,7 +32,8 @@ class GlobalsExtension extends \Twig_Extension
 
         // WebBundle:Info
         $this->locals['zeroconfig'] = array(
-            'title' => $admin_zero['developer']
+            'title' => $admin_zero['developer'],
+            'locales' => $admin_zero['locales']
         );
         // $this->locals['contacto'] = $this->doctrine->getRepository('CoreZeroBundle:Contacto')->find(1);
 

@@ -24,7 +24,7 @@
                         {% set conjunto_path = [url_path, url_path~'_create', url_path~'_new', url_path~'_edit', url_path~'_update', url_path~'_delete'] %}
                         <li class="{% if request.get('_route') in conjunto_path %}active{% endif %}">
                             <a href="{{ path(conjunto_path|first) }}" class="model-{{ key }}">
-                                <i class="fa fa-{{ row.ico|default('terminal') }}"></i>
+                                <i class="fa fa-{{ sub.ico|default('terminal') }}"></i>
                                 {{ sub.label|default(key) }}
                             </a>
                         </li>

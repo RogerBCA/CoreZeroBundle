@@ -101,3 +101,7 @@ ul.collection li.placeholder:before {
     border-left-color: red;
     border-right: none;
 }
+.skin-black .main-header > .navbar .nav .open.lang > a{
+    background: #1e282c none repeat scroll 0 0;
+    color: #fff;
+}

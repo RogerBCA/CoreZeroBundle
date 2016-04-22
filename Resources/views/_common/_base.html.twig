@@ -7,13 +7,9 @@
     <title>Administrador</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    {% set version_asset = '?v=1.11' %}
+    {% set version_asset = '?v=1.12' %}
 
     <link rel="stylesheet" href="{{ asset('bundles/corezero/css/all.min.css')~version_asset }}" rel="stylesheet" type="text/css"/>
-
-    <!-- <link rel="stylesheet" href="{{ asset('bundles/corezero/css/bootstrap.css')~version_asset }}" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-admin.css')~version_asset }}" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-skin.css')~version_asset }}" rel="stylesheet" type="text/css"/> -->
 
     {% block css_adicional %}{% endblock %}
 
@@ -40,9 +36,9 @@
             <!-- Logo -->
             <a href="{{ path('admin_dashboard') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>Staff</b></span>
+                <span class="logo-mini"><b>staff</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Staff <span style="color: rgb(128,174,26);">{{ zeroconfig.title }}</span></b></span>
+                <span class="logo-lg"><b>staff<span style="color: rgb(128,174,26);">{{ zeroconfig.title|lower }}</span></b></span>
             </a>
 
             <!-- Header Navbar -->
@@ -54,6 +50,12 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        {% for locale in zeroconfig.locales %}
+                            <li class="{% if app.request.locale == locale %}open{% endif %} lang {{ locale }}" data-lang="{{ locale }}">
+                                {% set path_url_translate = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale':locale})) %}
+                                <a href="{{ path_url_translate }}">{{ locale|upper }}</a>
+                            </li>
+                        {% endfor %}
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->

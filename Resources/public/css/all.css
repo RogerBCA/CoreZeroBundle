@@ -7750,7 +7750,7 @@ a:focus {
   line-height: 50px;
   text-align: center;
   width: 230px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Arial;
   padding: 0 15px;
   font-weight: 300;
   overflow: hidden;
@@ -14087,6 +14087,10 @@ ul.collection li.placeholder:before {
     border: 5px solid transparent;
     border-left-color: red;
     border-right: none;
+}
+.skin-black .main-header > .navbar .nav .open.lang > a{
+    background: #1e282c none repeat scroll 0 0;
+    color: #fff;
 }
 
 /* File: magnific-popup.css */
