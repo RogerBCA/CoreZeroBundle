@@ -94,7 +94,12 @@ services:
         class: Core\ZeroBundle\Twig\SolonumerosExtension
         tags:
             - { name: twig.extension }
-
+    core.twig.extension.translate:
+        class: Core\ZeroBundle\Twig\TranslateExtension
+        arguments:
+            doctrine: "@doctrine"
+        tags:
+            - { name: twig.extension }
     # WIDGET
     core.form.type.filebrowser:
         class: Core\ZeroBundle\Form\Type\FileBrowserType
