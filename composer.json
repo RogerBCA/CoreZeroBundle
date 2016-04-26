@@ -13,7 +13,6 @@
         "MIT"
     ],
     "require" : {
-        "friendsofsymfony/user-bundle": "~2.0@dev",
         "gedmo/doctrine-extensions": "^2.4",
         "ircmaxell/password-compat": "^1.0",
         "knplabs/knp-paginator-bundle": "^2.4",
