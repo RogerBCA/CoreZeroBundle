@@ -51,7 +51,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         {% for locale in zeroconfig.locales %}
-                            <li class="{% if app.request.locale == locale %}open{% endif %} lang {{ locale }}" data-lang="{{ locale }}">
+                            <li class="control-ajax {% if app.request.locale == locale %} open {% endif %} lang {{ locale }}" data-lang="{{ locale }}">
                                 {% set path_url_translate = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale':locale})) %}
                                 <a href="{{ path_url_translate }}">{{ locale|upper }}</a>
                             </li>
@@ -112,7 +112,7 @@
                 #}
 
                 <!-- Sidebar Menu -->
-                {{ render(controller('CoreZeroBundle:Zero:sidebar', {'request': app.request})) }}
+
                 <!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->
@@ -122,19 +122,29 @@
             <div id="main-content">
 {% endif %}
 
-                {% for tag, line in app.session.flashbag.all %}
-                    {% for underline in line %}
-                        <script type="text/javascript">
-                            new PNotify({
-                                // title: 'Elemento creado',
-                                text: '{{ underline }}',
-                                type: '{{ tag }}',
-                                icon: false
-                            });
-                        </script>
-                    {% endfor %}
-                {% endfor %}
+<div class="getsidebar hide">
+    {{ render(controller('CoreZeroBundle:Zero:sidebar', {'request': app.request})) }}
+</div>
 
+<script type="text/javascript">
+    $('section.sidebar').html($('.getsidebar').html());
+    $('li.lang').removeClass('open');
+    $('li.lang[data-lang="{{ app.request.locale }}"]').addClass('open');
+    {% for locale in zeroconfig.locales %}
+        {% set path_url_translate = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale':locale})) %}
+        $('li.lang[data-lang="{{ locale }}"] a').attr('href', '{{ path_url_translate }}');
+    {% endfor %}
+    {% for tag, line in app.session.flashbag.all %}
+        {% for underline in line %}
+            new PNotify({
+                // title: 'Elemento creado',
+                text: '{{ underline }}',
+                type: '{{ tag }}',
+                icon: false
+            });
+        {% endfor %}
+    {% endfor %}
+</script>
                 <!-- Content Header (Page header) -->
                 {% if not cabecera is defined or cabecera == 'true' %}
                 <section class="content-header">
