@@ -11,7 +11,7 @@ use Core\ZeroBundle\Entity\Translate;
 use Core\ZeroBundle\Form\TranslateType;
 
 /**
- * @Route("/Translate")
+ * @Route("/admin-staff/Translate")
  */
 class TranslateController extends Controller
 {
