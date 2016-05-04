@@ -17,7 +17,7 @@ use Core\ZeroBundle\Helper\Filemanager;
 /**
 * API controller.
 *
-* @Route("/api")
+* @Route("/admin-staff/api")
 */
 
 class ApiController extends Controller
@@ -32,7 +32,7 @@ class ApiController extends Controller
 
 
     /**
-     * @Route("/admin.js", name="admin-api-js-admin")
+     * @Route("/main.js", name="zerobundle_admin_api_main_js")
     */
     public function adminJsAction()
     {
@@ -44,7 +44,7 @@ class ApiController extends Controller
     }
 
     /**
-     * @Route("/browser/", name="admin-api-browser")
+     * @Route("/browser/", name="zerobundle_admin_api_browser")
      * @Template()
     */
     public function browserAction()
@@ -53,7 +53,7 @@ class ApiController extends Controller
     }
 
     /**
-    * @Route("/borrar/", name="admin-api-delete")
+    * @Route("/borrar/", name="zerobundle_admin_api_browser_delete")
     * @Method("POST")
     */
     public function borrarfileAction()
@@ -80,7 +80,7 @@ class ApiController extends Controller
     }
 
     /**
-    * @Route("/crear/carpeta/", name="admin-api-crear-carpeta")
+    * @Route("/crear/carpeta/", name="zerobundle_admin_api_browser_create_folder")
     * @Method("POST")
     */
     public function crearcarpetaAction()
@@ -111,7 +111,7 @@ class ApiController extends Controller
     }
 
     /**
-    * @Route("/subir/", name="admin-api-upload")
+    * @Route("/subir/", name="zerobundle_admin_api_browser_upload")
     * @Method("POST")
     */
     public function subirAction()
@@ -144,7 +144,7 @@ class ApiController extends Controller
     }
 
     /**
-    * @Route("/filemanager/list/", name="admin-api-list-filemanager")
+    * @Route("/filemanager/list/", name="zerobundle_admin_api_browser_list")
     * @Method("POST")
     */
     public function filemanagerListAction()
@@ -159,7 +159,6 @@ class ApiController extends Controller
 
         $path = $this->get('request')->request->get('data');
         $path = str_replace('..', '', $path);
-        // $path = (substr($path,0,8)=='uploads/') ? str_replace('uploads/', '', $path):$path;
 
         $files = array();
         $folders = array();

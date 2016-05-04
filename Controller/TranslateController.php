@@ -19,7 +19,7 @@ class TranslateController extends Controller
     /**
      * Lists all Translate entities.
      *
-     * @Route("/", name="core_admin_translate")
+     * @Route("/", name="zerobundle_admin_translate")
      * @Method("GET")
      * @Template()
      */
@@ -37,7 +37,7 @@ class TranslateController extends Controller
     /**
      * Displays a form to edit an existing Translate entity.
      *
-     * @Route("/{id}", name="core_admin_translate_edit")
+     * @Route("/{id}", name="zerobundle_admin_translate_edit")
      * @Method("GET")
      * @Template("CoreZeroBundle:Translate:form.html.twig")
      */
@@ -70,7 +70,7 @@ class TranslateController extends Controller
     private function createEditForm(Translate $entity)
     {
         $form = $this->createForm(new TranslateType(), $entity, array(
-            'action' => $this->generateUrl('core_admin_translate_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('zerobundle_admin_translate_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -82,7 +82,7 @@ class TranslateController extends Controller
     /**
      * Edits an existing Translate entity.
      *
-     * @Route("/{id}", name="core_admin_translate_update")
+     * @Route("/{id}", name="zerobundle_admin_translate_update")
      * @Method("PUT")
      * @Template("CoreZeroBundle:Translate:form.html.twig")
      */
@@ -109,11 +109,11 @@ class TranslateController extends Controller
 
             $return = ($request->query->get('ajax') == 'true') ? array('ajax'=>'true'):array();
 
-            $url = 'core_admin_translate';
+            $url = 'zerobundle_admin_translate';
 
             if ($editForm->get('submit2')->isClicked())
             {
-                $url = 'core_admin_translate_edit';
+                $url = 'zerobundle_admin_translate_edit';
                 $return['id'] = $entity->getId();
             }
 

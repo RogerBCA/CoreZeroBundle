@@ -7,14 +7,14 @@
             <table class="table table-hover DataTable">
                 <thead>
                     <tr>
-                        <th>Titulo</th>
+                        <th>Palabra</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for entity in entities %}
                     <tr>
                         <td class="control-ajax">
-                            <a href="{{ path(ROUTER_NAME~'_edit', { 'id': entity.id }) }}">{{ entity.texto|markdown }}</a>
+                            <a href="{{ path(ROUTER_NAME~'_edit', { 'id': entity.id }) }}">{{ entity.texto|markdown|striptags }}</a>
                         </td>
                     </tr>
                     {% endfor %}

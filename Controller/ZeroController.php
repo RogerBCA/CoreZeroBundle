@@ -8,12 +8,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+* @Route("/admin-staff")
+*/
+
 class ZeroController extends Controller
 {
     protected $locals = array();
 
     /**
-     * @Route("/admin-staff/", name="admin_dashboard")
+     * @Route("/", name="zerobundle_admin_dashboard")
      * @Template("CoreZeroBundle:Default:dashboard.html.twig")
      */
     public function dashboardAction()
@@ -22,7 +26,7 @@ class ZeroController extends Controller
     }
 
     /**
-     * @Route("/zero/", name="formulario_ajax_reserva_home")
+     * @Route("/sidebar/", name="zerobundle_admin_sidebar")
      * @Template("CoreZeroBundle:_common:_sidebar.html.twig")
      */
     public function sidebarAction($request)
