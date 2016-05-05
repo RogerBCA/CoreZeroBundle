@@ -3,7 +3,7 @@ namespace Core\ZeroBundle\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CKEditorType extends AbstractType
 {
@@ -13,6 +13,10 @@ class CKEditorType extends AbstractType
     }
     public function getParent()
     {
-        return TextareaType::class;
+        return TextType::class;
+    }
+    public function getBlockPrefix()
+    {
+        return 'ckeditor';
     }
 }
