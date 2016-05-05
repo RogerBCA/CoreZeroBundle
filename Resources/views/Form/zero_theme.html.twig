@@ -6,11 +6,15 @@
     {% if attr.toolbar is defined and attr.toolbar != '' %}
         <script type="text/javascript">
             {% set toolbar = attr.toolbar == 'simple' ? '"Bold"':attr.toolbar %}
-            CKEDITOR.replace( '{{ id }}', {"height":100,"toolbar":[[{{ toolbar|raw }}]]});
+            if( typeof(CKEDITOR) != "undefined" ){
+                CKEDITOR.replace( '{{ id }}', {"height":100,"toolbar":[[{{ toolbar|raw }}]]});
+            }
         </script>
     {% else %}
         <script type="text/javascript">
-            CKEDITOR.replace( '{{ id }}' );
+            if( typeof(CKEDITOR) != "undefined" ){
+                CKEDITOR.replace( '{{ id }}' );
+            }
         </script>
     {% endif %}
 {%- endblock ckeditor_widget -%}

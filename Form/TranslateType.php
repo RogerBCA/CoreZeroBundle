@@ -4,7 +4,7 @@ namespace Core\ZeroBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TranslateType extends AbstractType
 {
@@ -20,10 +20,12 @@ class TranslateType extends AbstractType
     }
 
     /**
-     * @return string
+     * @param OptionsResolver $resolver
      */
-    public function getName()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        return 'core_adminbundle_translate';
+        $resolver->setDefaults(array(
+            'data_class' => 'Core\ZeroBundle\Entity\Translate'
+        ));
     }
 }

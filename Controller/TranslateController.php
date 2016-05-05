@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Core\ZeroBundle\Entity\Translate;
 use Core\ZeroBundle\Form\TranslateType;
 
@@ -35,71 +36,25 @@ class TranslateController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Translate entity.
+     * Displays a form to edit an existing Blog entity.
      *
-     * @Route("/{id}", name="zerobundle_admin_translate_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="zerobundle_admin_translate_edit")
+     * @Method({"GET", "POST"})
      * @Template("CoreZeroBundle:Translate:form.html.twig")
      */
-    public function editAction($id)
+    public function editAction(Request $request, Translate $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('CoreZeroBundle:Translate')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Translate entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-
-        return array(
-            'titulo'      => 'Guardar información',
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-        );
-    }
-
-    /**
-    * Creates a form to edit a Translate entity.
-    *
-    * @param Translate $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Translate $entity)
-    {
-        $form = $this->createForm(new TranslateType(), $entity, array(
-            'action' => $this->generateUrl('zerobundle_admin_translate_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+        $editForm = $this->createForm('Core\ZeroBundle\Form\TranslateType', $entity, array(
+            'action' => $this->generateUrl('zerobundle_admin_translate_edit', array('id' => $entity->getId())),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Guardar y regresar al listado'));
-        $form->add('submit2', 'submit', array('label' => 'Guardar y seguir editando'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing Translate entity.
-     *
-     * @Route("/{id}", name="zerobundle_admin_translate_update")
-     * @Method("PUT")
-     * @Template("CoreZeroBundle:Translate:form.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('CoreZeroBundle:Translate')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Translate entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
+        $editForm->add('submit', SubmitType::class, array('label' => 'button_msg_1'));
+        $editForm->add('submit2', SubmitType::class, array('label' => 'button_msg_2'));
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
             $em->flush();
 
             $request->getSession()
@@ -117,13 +72,12 @@ class TranslateController extends Controller
                 $return['id'] = $entity->getId();
             }
 
-            return $this->redirect($this->generateUrl($url,$return));
+            return $this->redirectToRoute($url, $return);
         }
 
         return array(
-            'titulo'      => 'Guardar información',
-            'entity'      => $entity,
-            'form'   => $editForm->createView()
+            'entity' => $entity,
+            'form' => $editForm->createView(),
         );
     }
 }

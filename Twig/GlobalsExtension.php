@@ -27,7 +27,8 @@ class GlobalsExtension extends \Twig_Extension implements \Twig_Extension_Global
 
         $this->locals['zeroconfig'] = array(
             'title' => $admin_zero['developer'],
-            'locales' => @$admin_zero['locales']
+            'locales' => @$admin_zero['locales'],
+            'sidebar' => $admin_zero['sidebar']
         );
         return $this->locals;
     }

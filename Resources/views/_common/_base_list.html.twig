@@ -1,4 +1,11 @@
-{% extends 'CoreZeroBundle:_common:_base.html.twig' %}
+{% set base_template =
+    (app.request.query.get('ajax') == 'true') ?
+    'CoreZeroBundle:_common:_base_for_ajax.html.twig' :
+    'CoreZeroBundle:_common:_base.html.twig'
+    %}
+
+{% extends base_template %}
+
 {% set ROUTER_NAME = app.request.attributes.get('_route') %}
 {% set titulo = 'Listado'%}
 

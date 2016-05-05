@@ -1,11 +1,9 @@
-{% if app.request.query.get('ajax') != 'true' %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Administrador</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     {% set version_asset = '?v=1.12' %}
 
@@ -30,39 +28,23 @@
     <script src="{{ asset('bundles/corezero/js/all.js')~version_asset }}"></script>
 
     <div class="wrapper" id="page-wrap">
-        <!-- Main Header -->
         <header class="main-header">
-
-            <!-- Logo -->
             <a href="{{ path('zerobundle_admin_dashboard') }}" class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>staff</b></span>
-                <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>staff<span style="color: rgb(128,174,26);">{{ zeroconfig.title|lower }}</span></b></span>
             </a>
 
-            <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
-                <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav locales">
+                    </ul>
                     <ul class="nav navbar-nav">
-                        {% for locale in zeroconfig.locales %}
-                            <li class="control-ajax {% if app.request.locale == locale %} open {% endif %} lang {{ locale }}" data-lang="{{ locale }}">
-                                {% set path_url_translate = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale':locale})) %}
-                                <a href="{{ path_url_translate }}">{{ locale|upper }}</a>
-                            </li>
-                        {% endfor %}
-                        <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
-                            <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <!-- The user image in the navbar-->
                                 <img src="{{ asset('bundles/corezero/img/profile.jpg') }}" class="user-image" alt="User Image"/>
-                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">Administrador</span>
                             </a>
                             <ul class="dropdown-menu">
@@ -82,70 +64,32 @@
                 </div>
             </nav>
         </header>
-        <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
-            <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-
-                <!-- Sidebar user panel (optional) -->
-                {#
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <img src="http://0.gravatar.com/avatar/a1971069ca49846d4273f35dccf4deda?s=160" class="img-circle" alt="User Image" />
-                    </div>
-                    <div class="pull-left info">
-                        <p>Roger Cruz</p>
-                        <!-- Status -->
-                        <a href="#"><i class="fa fa-circle text-success"></i> En linea</a>
-                    </div>
-                </div>
-                <!-- search form (Optional) -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                        <span class="input-group-btn">
-                            <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
-                #}
-
-                <!-- Sidebar Menu -->
-
-                <!-- /.sidebar-menu -->
             </section>
-            <!-- /.sidebar -->
         </aside>
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div id="main-content">
-{% endif %}
+                {% include 'CoreZeroBundle:_common:_locales.html.twig' %}
+                {% include 'CoreZeroBundle:_common:_sidebar.html.twig' %}
 
-<div class="getsidebar hide">
-    {{ render(controller('CoreZeroBundle:Zero:sidebar', {'request': app.request})) }}
-</div>
+                <script type="text/javascript">
+                    if (window.jQuery) {
+                        $('.navbar-nav.locales').html($('.getlocales').html());
+                        $('section.sidebar').html($('.getsidebar').html());
 
-<script type="text/javascript">
-    $('section.sidebar').html($('.getsidebar').html());
-    $('li.lang').removeClass('open');
-    $('li.lang[data-lang="{{ app.request.locale }}"]').addClass('open');
-    {% for locale in zeroconfig.locales %}
-        {% set path_url_translate = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale':locale})) %}
-        $('li.lang[data-lang="{{ locale }}"] a').attr('href', '{{ path_url_translate }}');
-    {% endfor %}
-    {% for tag, line in app.session.flashbag.all %}
-        {% for underline in line %}
-            new PNotify({
-                // title: 'Elemento creado',
-                text: '{{ underline }}',
-                type: '{{ tag }}',
-                icon: false
-            });
-        {% endfor %}
-    {% endfor %}
-</script>
-                <!-- Content Header (Page header) -->
+                        {% for tag, line in app.session.flashbag.all %}
+                            {% for underline in line %}
+                                new PNotify({
+                                    text: '{{ underline }}',
+                                    type: '{{ tag }}',
+                                    icon: false
+                                });
+                            {% endfor %}
+                        {% endfor %}
+                    }
+                </script>
+
                 {% if not cabecera is defined or cabecera == 'true' %}
                 <section class="content-header">
                     <div class="sticky-wrapper">
@@ -156,21 +100,6 @@
                                 </div>
                                 <div class="navbar-collapse control-ajax">
                                     <div class="navbar-left"></div>
-                                    {#
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li class="dropdown sonata-actions">
-                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Actions <b class="caret"></b></a>
-                                            <ul role="menu" class="dropdown-menu">
-                                                <li>
-                                                    <a href="/admin/app/classification-category/1/history?context=default&amp;hide_context=0" class="sonata-action-element">
-                                                        <i class="fa fa-archive"></i>
-                                                        Revisions
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    #}
                                     {% block form_button %}{% endblock %}
                                 </div>
                             </div>
@@ -179,24 +108,20 @@
                     {% block breadcrumb %}{% endblock %}
                 </section>
                 {% endif %}
-                <!-- Main content -->
+
                 <section class="content" id="guts">
                     {% block body %}{% endblock %}
-                </section><!-- /.content -->
-{% if app.request.query.get('ajax') != 'true' %}
+                </section>
+
+                {% block adicional_html %}{% endblock %}
+
+                {% block javascript %}{% endblock %}
             </div>
-        </div><!-- /.content-wrapper -->
-        <!-- Main Footer -->
+        </div>
         <footer class="main-footer">
-            <!-- Default to the left -->
             <strong>Copyright &copy; {{ 'today'|date('Y') }} <a href="http://www.staff{{ zeroconfig.title|lower }}.pe" target="_blank">staff{{ zeroconfig.title|lower }}</a>.</strong> All rights reserved.
         </footer>
         <div class='control-sidebar-bg'></div>
-    </div><!-- ./wrapper -->
-{% endif %}
-    {% block adicional_html %}{% endblock %}
-    {% block javascript %}{% endblock %}
-{% if app.request.query.get('ajax') != 'true' %}
+    </div>
 </body>
 </html>
-{% endif %}

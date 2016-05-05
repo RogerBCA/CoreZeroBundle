@@ -1,3 +1,10 @@
-{% extends 'CoreZeroBundle:_common:_base.html.twig' %}
+{% set base_template =
+    (app.request.query.get('ajax') == 'true') ?
+    'CoreZeroBundle:_common:_base_for_ajax.html.twig' :
+    'CoreZeroBundle:_common:_base.html.twig'
+    %}
 
-{% block body %}{% endblock %}
+{% extends base_template %}
+
+{% block body %}
+{% endblock %}
