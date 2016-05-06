@@ -48,8 +48,8 @@ class TranslateController extends Controller
             'action' => $this->generateUrl('zerobundle_admin_translate_edit', array('id' => $entity->getId())),
         ));
 
-        $editForm->add('submit', SubmitType::class, array('label' => 'button_new_msg_1'));
-        $editForm->add('submit2', SubmitType::class, array('label' => 'button_new_msg_2'));
+        $editForm->add('submit', SubmitType::class, array('label' => 'button_edit_msg_1'));
+        $editForm->add('submit2', SubmitType::class, array('label' => 'button_edit_msg_2'));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

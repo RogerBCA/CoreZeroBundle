@@ -86,51 +86,6 @@ class ZeroSeoController extends Controller
     }
 
     /**
-     * Creates a new ZeroSeo entity.
-     *
-     * @Route("/", name="zerobundle_admin_zeroseo_create")
-     * @Method("POST")
-     * @Template("CoreZeroBundle:ZeroSeo:form.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new ZeroSeo();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            $request->getSession()
-                ->getFlashBag()
-                ->add('success', 'Se ha añaadido con éxito!')
-            ;
-
-            $return = ($request->query->get('ajax') == 'true') ? array('ajax'=>'true'):array();
-
-            $url = 'zerobundle_admin_zeroseo';
-
-            if ($form->get('submit2')->isClicked())
-            {
-                $url = 'zerobundle_admin_zeroseo_edit';
-                $return['id'] = $entity->getId();
-            }elseif ($form->get('submit3')->isClicked()) {
-                $url = 'zerobundle_admin_zeroseo_new';
-            }
-
-            return $this->redirect($this->generateUrl($url,$return));
-        }
-
-        return array(
-            'titulo'      => 'Crear información',
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
      * Displays a form to edit an existing ZeroSeo entity.
      *
      * @Route("/{id}/edit", name="zerobundle_admin_zeroseo_edit")
@@ -143,8 +98,8 @@ class ZeroSeoController extends Controller
         $editForm = $this->createForm('Core\ZeroBundle\Form\ZeroSeoType', $entity, array(
             'action' => $this->generateUrl('zerobundle_admin_zeroseo_edit', array('id' => $entity->getId())),
         ));
-        $editForm->add('submit', SubmitType::class, array('label' => 'button_new_msg_1'));
-        $editForm->add('submit2', SubmitType::class, array('label' => 'button_new_msg_2'));
+        $editForm->add('submit', SubmitType::class, array('label' => 'button_edit_msg_1'));
+        $editForm->add('submit2', SubmitType::class, array('label' => 'button_edit_msg_2'));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
