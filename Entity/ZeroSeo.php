@@ -20,7 +20,7 @@ class ZeroSeo
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(length=250)
      * @Assert\NotBlank()
      */
     private $path;
@@ -38,7 +38,7 @@ class ZeroSeo
     /**
      * @ORM\Column(length=150, nullable=true)
      */
-    private $socialTitle;
+    private $socialTitulo;
 
     /**
      * @ORM\Column(length=150, nullable=true)
@@ -50,4 +50,152 @@ class ZeroSeo
      */
     private $socialImagen;
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return ZeroSeo
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param string $titulo
+     * @return ZeroSeo
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return ZeroSeo
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set socialTitulo
+     *
+     * @param string $socialTitulo
+     * @return ZeroSeo
+     */
+    public function setSocialTitulo($socialTitulo)
+    {
+        $this->socialTitulo = $socialTitulo;
+
+        return $this;
+    }
+
+    /**
+     * Get socialTitulo
+     *
+     * @return string
+     */
+    public function getSocialTitulo()
+    {
+        return $this->socialTitulo;
+    }
+
+    /**
+     * Set socialDescripcion
+     *
+     * @param string $socialDescripcion
+     * @return ZeroSeo
+     */
+    public function setSocialDescripcion($socialDescripcion)
+    {
+        $this->socialDescripcion = $socialDescripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get socialDescripcion
+     *
+     * @return string
+     */
+    public function getSocialDescripcion()
+    {
+        return $this->socialDescripcion;
+    }
+
+    /**
+     * Set socialImagen
+     *
+     * @param string $socialImagen
+     * @return ZeroSeo
+     */
+    public function setSocialImagen($socialImagen)
+    {
+        $this->socialImagen = $socialImagen;
+
+        return $this;
+    }
+
+    /**
+     * Get socialImagen
+     *
+     * @return string
+     */
+    public function getSocialImagen()
+    {
+        return $this->socialImagen;
+    }
 }

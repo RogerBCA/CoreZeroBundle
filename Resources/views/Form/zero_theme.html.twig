@@ -104,8 +104,8 @@
 
 {% block form_widget_simple -%}
     {{- parent() -}}
-    {% if attr.help is defined %}
-        <p class="help-block">{{ attr.help }}</p>
+    {% if attr.help_text is defined %}
+        <p class="help-block">{{ attr.help_text }}</p>
     {% endif %}
 {%- endblock form_widget_simple %}
 

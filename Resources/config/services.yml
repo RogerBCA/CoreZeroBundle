@@ -100,12 +100,9 @@ services:
             doctrine: "@doctrine"
         tags:
             - { name: twig.extension }
-    # WIDGET
-    core.form.type.filebrowser:
-        class: Core\ZeroBundle\Form\Type\FileBrowserType
+    core.twig.extension.metatags:
+        class: Core\ZeroBundle\Twig\MetatagsExtension
+        arguments:
+            doctrine: "@doctrine"
         tags:
-            - { name: form.type }
-    core.form.type.ckeditor:
-        class: Core\ZeroBundle\Form\Type\CKEditorType
-        tags:
-            - { name: form.type }
+            - { name: twig.extension }

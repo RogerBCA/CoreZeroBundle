@@ -4,18 +4,20 @@
 
 <script type="text/javascript">
     if (window.jQuery) {
-        $('.navbar-nav.locales').html($('.getlocales').html());
-        $('section.sidebar').html($('.getsidebar').html());
+        setTimeout(function(){
+            $('.navbar-nav.locales').html($('.getlocales').html());
+            $('section.sidebar').html($('.getsidebar').html());
 
-        {% for tag, line in app.session.flashbag.all %}
-            {% for underline in line %}
-                new PNotify({
-                    text: '{{ underline }}',
-                    type: '{{ tag }}',
-                    icon: false
-                });
+            {% for tag, line in app.session.flashbag.all %}
+                {% for underline in line %}
+                    new PNotify({
+                        text: '{{ underline }}',
+                        type: '{{ tag }}',
+                        icon: false
+                    });
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
+        }, 100);
     }
 </script>
 

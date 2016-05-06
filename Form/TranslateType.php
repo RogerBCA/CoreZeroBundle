@@ -18,14 +18,4 @@ class TranslateType extends AbstractType
             ->add('texto')
         ;
     }
-
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Core\ZeroBundle\Entity\Translate'
-        ));
-    }
 }
