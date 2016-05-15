@@ -1,74 +1,102 @@
 {% trans_default_domain 'FOSUserBundle' %}
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Iniciar sesión</title>
-    <!-- CORE CSS-->
-    {% set version_asset = '?v=1.11' %}
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/pack/materialize/css/materialize.min.css')~version_asset }}">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body class="grey lighten-3">
-    <div id="login-page" class="row">
-        <div class="col s12 m8 offset-m2 l4 offset-l4 card-panel hoverable">
-            <form class="login-form" action="{{ path("zerobundle_admin_security_check") }}" method="post">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                <div class="row">
-                    <div class="input-field col s12 center">
-                        <img src="https://www.staffdigital.pe/static/img/logo-staffdigital.png" alt="" class="responsive-img valign profile-image-login">
+        <title>Iniciar sesión</title>
+
+        <link rel="stylesheet" href="{{ asset('bundles/corezero/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/corezero/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/corezero/login/css/form-elements.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/corezero/login/css/style.css') }}">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <!-- Top content -->
+        <div class="top-content">
+
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text staff">
+                            <h1>staff<span style="color: #b0c41e;">{{ zeroconfig.title|lower }}</span></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Iniciar sesión</h3>
+                                    <p>
+                                        Complete su información:
+                                    </p>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <form class="login-form" action="{{ path("zerobundle_admin_security_check") }}" method="post">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                    <div class="form-group">
+                                        <label class="sr-only" for="username">{{ 'security.login.username'|trans }}</label>
+                                        <input id="username" type="text" placeholder="{{ 'security.login.username'|trans }}..." class="form-username form-control" name="_username" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-password">{{ 'security.login.password'|trans }}</label>
+                                        <input id="password" type="password" placeholder="{{ 'security.login.password'|trans }}..." class="form-password form-control" name="_password">
+                                    </div>
+                                    <button class="btn" type="submit" id="_submit" name="_submit">
+                                        {{ 'security.login.submit'|trans }}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row margin">
-                    <div class="input-field col s12">
-                        <i class="mdi-social-person-outline prefix"></i>
-                        <input id="username" type="text" class="validate" name="_username" value="{{ last_username }}">
-                        <label for="username">{{ 'security.login.username'|trans }}</label>
-                    </div>
-                </div>
-                <div class="row margin">
-                    <div class="input-field col s12">
-                        <i class="mdi-action-lock-outline prefix"></i>
-                        <input id="password" name="_password" type="password">
-                        <label for="password">{{ 'security.login.password'|trans }}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m12 l12  login-text">
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <button class="btn waves-effect waves-light col s12" type="submit" id="_submit" name="_submit">
-                            {{ 'security.login.submit'|trans }}
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <h6 class="center-align">
-                © {{ 'today'|date('Y') }} Desarrollado por <a href="https://www.staffdigital.pe/" target="_blank">staffdigital</a>
-            </h6>
+            </div>
         </div>
-    </div>
 
-    <!-- ================================================
-    Scripts
-    ================================================ -->
 
-    <!-- jQuery Library -->
-    <script src="{{ asset('bundles/corezero/pack/jquery-2.2.2.min.js')~version_asset }}"></script>
-    <!--materialize js-->
-    <script src="{{ asset('bundles/corezero/pack/materialize/js/materialize.min.js')~version_asset }}"></script>
-
-    {% if error %}
+        <!-- Javascript -->
+        <script src="{{ asset('bundles/corezero/js/a.jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/corezero/js/c.bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/corezero/login/js/jquery.backstretch.min.js') }}"></script>
         <script type="text/javascript">
-            Materialize.toast('{{ error.messageKey|trans(error.messageData, 'security') }}', 4000)
-        </script>
-    {% endif %}
+        jQuery(document).ready(function() {
+            $.backstretch("{{ asset('bundles/corezero/login/img/backgrounds/1.jpg') }}");
 
-</body>
+            $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function() {
+                $(this).removeClass('input-error');
+            });
+
+            $('.login-form').on('submit', function(e) {
+                $(this).find('input[type="text"], input[type="password"], textarea').each(function(){
+                    if( $(this).val() == "" ) {
+                        e.preventDefault();
+                        $(this).addClass('input-error');
+                    }
+                    else {
+                        $(this).removeClass('input-error');
+                    }
+                });
+
+            });
+        });
+        </script>
+
+        <!--[if lt IE 10]>
+            <script src="{{ asset('bundles/corezero/login/js/placeholder.js') }}"></script>
+        <![endif]-->
+    </body>
 </html>
