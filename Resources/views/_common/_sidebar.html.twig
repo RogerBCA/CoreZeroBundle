@@ -12,7 +12,7 @@
                 {% set conjunto_path = [] %}
                 {% for key in row.interno|keys %}
                     {% set url_path = 'zerobundle_admin_'~key|lower %}
-                    {% set conjunto_path = [url_path, url_path~'_new', url_path~'_edit', url_path~'_delete']|merge(conjunto_path) %}
+                    {% set conjunto_path = [url_path, url_path~'_new', url_path~'_show', url_path~'_edit', url_path~'_delete']|merge(conjunto_path) %}
                 {% endfor %}
                 <li class="treeview {% if app.request.get('_route') in conjunto_path %}active{% endif %}">
                     <a href="#">
@@ -23,7 +23,7 @@
                     <ul class="treeview-menu {% if app.request.get('_route') in conjunto_path %}menu-open{% endif %}">
                         {% for key,sub in row.interno %}
                             {% set url_path = 'zerobundle_admin_'~key|lower %}
-                            {% set conjunto_path = [url_path, url_path~'_create', url_path~'_new', url_path~'_edit', url_path~'_update', url_path~'_delete'] %}
+                            {% set conjunto_path = [url_path, url_path~'_new', url_path~'_show', url_path~'_edit', url_path~'_delete'] %}
                             <li class="{% if app.request.get('_route') in conjunto_path %}active{% endif %}">
                                 <a href="{{ path(conjunto_path|first) }}" class="model-{{ key }}">
                                     <i class="fa fa-{{ sub.ico|default('terminal') }}"></i>
@@ -35,7 +35,7 @@
                 </li>
             {% else %}
                 {% set url_path = 'zerobundle_admin_'~row.model|lower %}
-                {% set conjunto_path = [url_path, url_path~'_new', url_path~'_edit', url_path~'_delete'] %}
+                {% set conjunto_path = [url_path, url_path~'_new', url_path~'_show', url_path~'_edit', url_path~'_delete'] %}
                 <li class="{% if app.request.get('_route') in conjunto_path %}active{% endif %}">
                     <a href="{{ path(conjunto_path|first) }}" class="model-{{ row.model }}">
                         <i class='fa fa-{{ row.ico|default('terminal') }}'></i>
