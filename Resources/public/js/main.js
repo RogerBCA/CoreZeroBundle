@@ -148,7 +148,7 @@ Dropzone.autoDiscover = false;
 var myDropzone = new Dropzone("form#my-awesome-dropzone", { url: url_upload});
 
 if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
-	CKEDITOR.tools.enableHtml5Elements( document );
+    CKEDITOR.tools.enableHtml5Elements( document );
 
 CKEDITOR.config.toolbar = [
     { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview', '-', 'Templates' ] }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
@@ -165,7 +165,7 @@ $(document).on('click', '.media-right .eliminar', function(){
     formHasChanged = true;
 });
 
-$(document).on('change', '.box input, .box select, .box textarea', function (e) {
+$(document).on('change', '.box .form-group input, .box .form-group select, .box .form-group textarea', function (e) {
     unsaved = true;
 });
 
