@@ -32,7 +32,7 @@ class ApiController extends Controller
 
 
     /**
-     * @Route("/main.js", name="zerobundle_admin_api_main_js")
+     * @Route("/resource-js/", name="zerobundle_admin_api_main_js")
     */
     public function adminJsAction()
     {
