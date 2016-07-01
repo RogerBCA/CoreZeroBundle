@@ -75,7 +75,10 @@ services:
         class: Core\ZeroBundle\Twig\YoutubeExtension
         tags:
             - { name: twig.extension }
-
+    core.twig.extension.meses:
+        class: Core\ZeroBundle\Twig\MesesExtension
+        tags:
+            - { name: twig.extension }
     core.twig.extension.thumbnail:
         class: Core\ZeroBundle\Twig\ThumbnailExtension
         arguments:
