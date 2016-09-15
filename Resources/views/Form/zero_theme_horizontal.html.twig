@@ -105,7 +105,7 @@
 {% block form_widget_simple -%}
     {{- parent() -}}
     {% if attr.help_text is defined %}
-        <p class="help-block">{{ attr.help_text }}</p>
+        <p class="help-block">{{ attr.help_text|markdown|replace({'<p>': '', '</p>': ''})|raw }}</p>
     {% endif %}
 {%- endblock form_widget_simple %}
 

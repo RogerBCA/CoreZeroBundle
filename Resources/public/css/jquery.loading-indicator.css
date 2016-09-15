@@ -9,7 +9,7 @@
     outline: none !important;
     -webkit-backface-visibility: hidden;
     text-align: center;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     -moz-transition: all 250ms linear;
     -o-transition: all 250ms linear;
     -webkit-transition: all 250ms linear;

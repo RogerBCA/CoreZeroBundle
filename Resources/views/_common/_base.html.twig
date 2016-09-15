@@ -27,6 +27,13 @@
     <script src="{{ asset('bundles/corezero/ckeditor/ckeditor.js')~version_asset }}"></script>
     <script src="{{ asset('bundles/corezero/js/all.js')~version_asset }}"></script>
 
+    {% for row in zeroconfig.js_externo %}
+    <script src="{{ row }}"></script>
+    {% endfor %}
+    {% for row in zeroconfig.js_interno %}
+    <script src="{{ asset(row)~version_asset }}"></script>
+    {% endfor %}
+
     <div class="wrapper" id="page-wrap">
         <header class="main-header">
             <a href="{{ path('zerobundle_admin_dashboard') }}" class="logo">

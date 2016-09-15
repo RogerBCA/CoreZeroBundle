@@ -209,6 +209,9 @@ $('div#remove a.submit').click(function (e) {
 $('div#upload').on('hidden.bs.modal', function (e) {
     myDropzone.removeAllFiles();
     browse(PATH);
+    if (!$('body').hasClass('modal-open')) {
+        $('body').addClass('modal-open');
+    }
 });
 
 // -------------------------------------------------- TOOLBOX BUTTONS

@@ -16,6 +16,13 @@ function h() {
     }
 }
 
+$('body').on('click', '.help-block a', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var url = $(this).attr('href');
+    window.open(url , '_blank');
+});
+
 $('body').loadingIndicator();
 var loader = $('body').data("loadingIndicator");
 
