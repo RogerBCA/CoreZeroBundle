@@ -31,10 +31,8 @@ class ZeroController extends Controller
      */
     public function sidebarAction($request)
     {
-        $admin_zero = $this->container->getParameter('admin_zero');
-
+        $container = $this->container;
         $this->locals['request'] = $request;
-        $this->locals['sidebar'] = $admin_zero['sidebar'];
         return $this->locals;
     }
 }
