@@ -7,124 +7,131 @@ class Util
 {
     public function thumbnail($root,$archivo, $thumb_width=0, $thumb_height=0)
     {
-        $base = realpath($root.'/../web/');
+        try {
+            $base = realpath($root.'/../web/');
 
-        if ( !is_numeric($thumb_width) ) $thumb_width = 100;
-        if ( $thumb_width == 0 ) $thumb_width = 100;
-        if ( !is_numeric($thumb_height) ) $thumb_height = $thumb_width;
-        if ( $thumb_height == 0 ) $thumb_height = $thumb_width;
+            if ( !is_numeric($thumb_width) ) $thumb_width = 100;
+            if ( $thumb_width == 0 ) $thumb_width = 100;
+            if ( !is_numeric($thumb_height) ) $thumb_height = $thumb_width;
+            if ( $thumb_height == 0 ) $thumb_height = $thumb_width;
 
-        $fs = new Filesystem();
+            $fs = new Filesystem();
 
-        if (!$fs->exists($base.'/'.$archivo) or $archivo == '')
-            return array(
-                'original' => '',
-                'thumb' => '',
-                'medidas' => ''
+            if (!$fs->exists($base.'/'.$archivo) or $archivo == '')
+                return array(
+                    'original' => '',
+                    'thumb' => '',
+                    'medidas' => ''
+                );
+
+            $ext = pathinfo($archivo, PATHINFO_EXTENSION);
+
+            $thumbnail_file = 'thumbs/'.md5($thumb_width.'x'.$thumb_height.'-'.$archivo).'.'.$ext;
+
+            $source_path = realpath($base.'/'.$archivo);
+
+            list($source_width, $source_height, $source_type) = getimagesize($source_path);
+
+
+            if ($fs->exists($base.'/'.$thumbnail_file))
+                return array(
+                    'original' => $archivo,
+                    'thumb' => $thumbnail_file,
+                    'medidas' => $source_width.' x '.$source_height
+                );
+
+            if (!$fs->exists($base.'/thumbs'))
+                $fs->mkdir($base.'/thumbs', 0755);
+
+            switch ($source_type) {
+                case IMAGETYPE_GIF:
+                    $source_gdim = imagecreatefromgif($source_path);
+                    break;
+                case IMAGETYPE_JPEG:
+                    $source_gdim = imagecreatefromjpeg($source_path);
+                    break;
+                case IMAGETYPE_PNG:
+                    $source_gdim = imagecreatefrompng($source_path);
+                    break;
+                default:
+                    return '';
+            }
+
+            $source_aspect_ratio = $source_width / $source_height;
+            $desired_aspect_ratio = $thumb_width / $thumb_height;
+
+            if ($source_aspect_ratio > $desired_aspect_ratio) {
+                /*
+                 * Triggered when source image is wider
+                 */
+                $temp_height = $thumb_height;
+                $temp_width = ( int ) ($thumb_height * $source_aspect_ratio);
+            } else {
+                /*
+                 * Triggered otherwise (i.e. source image is similar or taller)
+                 */
+                $temp_width = $thumb_width;
+                $temp_height = ( int ) ($thumb_width / $source_aspect_ratio);
+            }
+
+            /*
+             * Resize the image into a temporary GD image
+             */
+
+            $temp_gdim = imagecreatetruecolor($temp_width, $temp_height);
+            if ($ext == 'png') {
+                imagealphablending( $temp_gdim, false );
+                imagesavealpha( $temp_gdim, true );
+            }
+            imagecopyresampled(
+                $temp_gdim,
+                $source_gdim,
+                0, 0,
+                0, 0,
+                $temp_width, $temp_height,
+                $source_width, $source_height
             );
 
-        $ext = pathinfo($archivo, PATHINFO_EXTENSION);
+            /*
+             * Copy cropped region from temporary image into the desired GD image
+             */
 
-        $thumbnail_file = 'thumbs/'.md5($thumb_width.'x'.$thumb_height.'-'.$archivo).'.'.$ext;
-
-        $source_path = realpath($base.'/'.$archivo);
-
-        list($source_width, $source_height, $source_type) = getimagesize($source_path);
-
-
-        if ($fs->exists($base.'/'.$thumbnail_file))
-            return array(
-                'original' => $archivo,
-                'thumb' => $thumbnail_file,
-                'medidas' => $source_width.' x '.$source_height
+            $x0 = ($temp_width - $thumb_width) / 2;
+            $y0 = ($temp_height - $thumb_height) / 2;
+            $desired_gdim = imagecreatetruecolor($thumb_width, $thumb_height);
+            if ($ext == 'png') {
+                imagealphablending( $desired_gdim, false );
+                imagesavealpha( $desired_gdim, true );
+            }
+            imagecopy(
+                $desired_gdim,
+                $temp_gdim,
+                0, 0,
+                $x0, $y0,
+                $thumb_width, $thumb_height
             );
 
-        if (!$fs->exists($base.'/thumbs'))
-            $fs->mkdir($base.'/thumbs', 0755);
-
-        switch ($source_type) {
-            case IMAGETYPE_GIF:
-                $source_gdim = imagecreatefromgif($source_path);
-                break;
-            case IMAGETYPE_JPEG:
-                $source_gdim = imagecreatefromjpeg($source_path);
-                break;
-            case IMAGETYPE_PNG:
-                $source_gdim = imagecreatefrompng($source_path);
-                break;
-            default:
-                return '';
+            switch ($source_type) {
+                case IMAGETYPE_GIF:
+                    imagegif($desired_gdim,$base.'/'.$thumbnail_file);
+                    break;
+                case IMAGETYPE_JPEG:
+                    imagejpeg($desired_gdim,$base.'/'.$thumbnail_file,100);
+                    break;
+                case IMAGETYPE_PNG:
+                    imagepng($desired_gdim,$base.'/'.$thumbnail_file);
+                    break;
+                default:
+                    return '';
+            }
+            imagedestroy($temp_gdim);
+            imagedestroy($desired_gdim);
+        } catch (Exception $e) {
+            $source_width = 'none';
+            $source_height = 'none';
+            $thumbnail_file = 'bundles/corezero/img/no-found.jpg';
         }
 
-        $source_aspect_ratio = $source_width / $source_height;
-        $desired_aspect_ratio = $thumb_width / $thumb_height;
-
-        if ($source_aspect_ratio > $desired_aspect_ratio) {
-            /*
-             * Triggered when source image is wider
-             */
-            $temp_height = $thumb_height;
-            $temp_width = ( int ) ($thumb_height * $source_aspect_ratio);
-        } else {
-            /*
-             * Triggered otherwise (i.e. source image is similar or taller)
-             */
-            $temp_width = $thumb_width;
-            $temp_height = ( int ) ($thumb_width / $source_aspect_ratio);
-        }
-
-        /*
-         * Resize the image into a temporary GD image
-         */
-
-        $temp_gdim = imagecreatetruecolor($temp_width, $temp_height);
-        if ($ext == 'png') {
-            imagealphablending( $temp_gdim, false );
-            imagesavealpha( $temp_gdim, true );
-        }
-        imagecopyresampled(
-            $temp_gdim,
-            $source_gdim,
-            0, 0,
-            0, 0,
-            $temp_width, $temp_height,
-            $source_width, $source_height
-        );
-
-        /*
-         * Copy cropped region from temporary image into the desired GD image
-         */
-
-        $x0 = ($temp_width - $thumb_width) / 2;
-        $y0 = ($temp_height - $thumb_height) / 2;
-        $desired_gdim = imagecreatetruecolor($thumb_width, $thumb_height);
-        if ($ext == 'png') {
-            imagealphablending( $desired_gdim, false );
-            imagesavealpha( $desired_gdim, true );
-        }
-        imagecopy(
-            $desired_gdim,
-            $temp_gdim,
-            0, 0,
-            $x0, $y0,
-            $thumb_width, $thumb_height
-        );
-
-        switch ($source_type) {
-            case IMAGETYPE_GIF:
-                imagegif($desired_gdim,$base.'/'.$thumbnail_file);
-                break;
-            case IMAGETYPE_JPEG:
-                imagejpeg($desired_gdim,$base.'/'.$thumbnail_file,100);
-                break;
-            case IMAGETYPE_PNG:
-                imagepng($desired_gdim,$base.'/'.$thumbnail_file);
-                break;
-            default:
-                return '';
-        }
-        imagedestroy($temp_gdim);
-        imagedestroy($desired_gdim);
         return array(
             'original' => $archivo,
             'thumb' => $thumbnail_file,

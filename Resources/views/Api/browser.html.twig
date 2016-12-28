@@ -5,14 +5,14 @@
     <title>Archivos</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-admin.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-skin.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/bootstrap.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-admin.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-skin.css') }}" rel="stylesheet" type="text/css"/>
 
     <!-- Font Awesome Icons -->
     <link href="{{ asset('bundles/corezero/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-gallery.css') }}" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{{ asset('bundles/corezero/css/lte-zero-gallery.css') }}" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="{{ asset('bundles/corezero/css/dropzone.css') }}" media="screen" title="no title" charset="utf-8">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,22 +46,33 @@
     <!-- REQUIRED JS SCRIPTS -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="{{ asset('bundles/corezero/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('bundles/corezero/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/corezero/js/filemanager.js') }}"></script>
-    <script src="{{ asset('bundles/corezero/js/dropzone.js') }}"></script>
-
     <script type="text/javascript">
-        var pathListFilemanager = '{{ path('admin-api-list-filemanager') }}',
-            pathDeleteFilemanager = '{{ path('admin-api-delete') }}',
-            pathCreateFolderFilemanager = '{{ path('admin-api-crear-carpeta') }}',
+        var pathListFilemanager = '{{ path("zerobundle_admin_api_browser_list")|raw }}',
+            pathDeleteFilemanager = '{{ path("zerobundle_admin_api_browser_delete")|raw }}',
+            pathCreateFolderFilemanager = '{{ path("zerobundle_admin_api_browser_create_folder")|raw }}',
             PATH = '',
             asset_url = '{{ asset('') }}',
-            unsaved = false;
+            unsaved = false,
+            url_upload = '{{ path("zerobundle_admin_api_browser_upload")|raw }}',
+            msg_warning_form_no_saved = 'Usted no ha guardado los cambios.'
+            msg_dropzone = 'Arrastra uno ó varios archivos aquí.';
+    </script>
 
+    <script src="{{ asset('bundles/corezero/js/a.jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/corezero/js/b.dropzone.js') }}"></script>
+    <script src="{{ asset('bundles/corezero/js/b.jquery.loading-indicator.js') }}"></script>
+    <script src="{{ asset('bundles/corezero/js/c.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/corezero/js/c.jquery.magnific-popup.js') }}"></script>
+    <script type="text/javascript">
+        $('body').loadingIndicator();
+        var loader = $('body').data("loadingIndicator");
+    </script>
+    <script src="{{ asset('bundles/corezero/js/filemanager.js') }}"></script>
+
+    <script type="text/javascript">
         browse(PATH);
         Dropzone.autoDiscover = false;
-        var myDropzone = new Dropzone("form#my-awesome-dropzone", { url: "{{ path('admin-api-upload') }}"});
+        var myDropzone = new Dropzone("form#my-awesome-dropzone", { url: "{{ path('zerobundle_admin_api_browser_upload') }}"});
 
         function getUrlParam( paramName ) {
             var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' ) ;

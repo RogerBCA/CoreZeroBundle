@@ -154,7 +154,6 @@ class ApiController extends Controller
         $filemanager = new Filemanager();
         $util = new Util();
         $directorio = realpath($this->get('kernel')->getRootDir().'/../web/uploads');
-
         if ( !$fs->exists($directorio) ) $fs->mkdir($directorio);
 
         $path = $this->get('request')->request->get('data');
