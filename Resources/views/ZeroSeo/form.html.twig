@@ -1,4 +1,7 @@
-{% set toolbars_locales = false %}
+{% if zeroconfig.locales|length == 0 %}
+    {% set toolbars_locales = false %}
+{% endif %}
+
 {% extends 'CoreZeroBundle:_common:_base_form.html.twig' %}
 
 {% block form_button %}
