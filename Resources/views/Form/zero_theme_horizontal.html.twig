@@ -54,7 +54,7 @@
         {%- set attr = attr|merge({'data-prototype': form_widget(prototype) }) -%}
     {% endif %}
     <div {{ block('widget_attributes') }}>
-        <ul id="field-{{ id }}" class="media-list collection">
+        <ul id="field-{{ id }}" class="media-list collection listado-group-{{ id }}" data-id="{{ id }}">
             {% for i,item in form %}
                 <li class="media" id="campo-{{ id~'_'~i }}">
                     <div class="media-body">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="media-right">
                         <button class="btn btn-default btn-xs close eliminar" type="button"><i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-default btn-xs close mover" type="button"><i class="fa fa-arrows"></i></button>
+                        <!-- <button class="btn btn-default btn-xs close mover" type="button"><i class="fa fa-arrows"></i></button> -->
                     </div>
                 </li>
             {% endfor %}

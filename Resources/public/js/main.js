@@ -124,25 +124,48 @@ function id_existe_collection(name, id){
 }
 
 function load_sortable() {
-    $('.collection').sortable({
-        handle: '.mover',
-        onDragStart: function ($item, container, _super) {
-            // Duplicate items of the no drop area
-            if(!container.options.drop)
-            $item.clone().insertAfter($item);
-            _super($item, container);
-            // var id_textarea = ui.item.find("textarea").attr("id");
-            // if (CKEDITOR.instances[id_textarea]) {
-            //     CKEDITOR.instances[id_textarea].destroy();
-            //     delete CKEDITOR.instances[id_textarea];
-            // }
-        },
-        afterMove: function ($placeholder, container, $closestItemOrContainer)
-        {
-            // var old_html = ui.item.html();
-            // ui.item.html(old_html);
-        }
+    $('.collection').each(function(index, el) {
+        var contentid = $(this).attr('id');
+        var list = document.getElementById(contentid);
+        Sortable.create(list); // That's all.
+
+        // var dataid = $(this).data('id');
+        // var container = document.getElementById(dataid);
+        // var sort = Sortable.create(container, {
+        //     animation: 150, // ms, animation speed moving items when sorting, `0` — without animation
+        //     handle: '.mover-'+dataid, // Restricts sort start click/touch to the specified element
+        //     draggable: ".tile", // Specifies which items inside the element should be sortable
+        //     onUpdate: function (evt/**Event*/){
+        //         var item = evt.item; // the current dragged HTMLElement
+        //     }
+        // });
+
+        // $('.listado-group-'+dataid).sortable({
+        //     group: 'no-drop',
+        //     handle: '.mover-'+dataid,
+        //     onDragStart: function ($item, container, _super) {
+        //         // Duplicate items of the no drop area
+        //         if(!container.options.drop)
+        //         $item.clone().insertAfter($item);
+        //         _super($item, container);
+        //         // var id_textarea = ui.item.find("textarea").attr("id");
+        //         // if (CKEDITOR.instances[id_textarea]) {
+        //         //     CKEDITOR.instances[id_textarea].destroy();
+        //         //     delete CKEDITOR.instances[id_textarea];
+        //         // }
+        //     },
+        //     afterMove: function ($placeholder, container, $closestItemOrContainer)
+        //     {
+        //         // var old_html = ui.item.html();
+        //         // ui.item.html(old_html);
+        //     }
+        // });
     });
+
+    // $('.second-group').sortable({
+    //     group: 'no-drop',
+    //     handle: '.mover'
+    // });
 }
 
 function destroy_sortable() {
