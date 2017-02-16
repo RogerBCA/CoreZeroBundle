@@ -8,10 +8,7 @@
 
         <title>Iniciar sesión</title>
 
-        <link rel="stylesheet" href="{{ asset('bundles/corezero/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('bundles/corezero/css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('bundles/corezero/login/css/form-elements.css') }}">
-        <link rel="stylesheet" href="{{ asset('bundles/corezero/login/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/corezero/css/login.css') }}">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,12 +66,10 @@
 
 
         <!-- Javascript -->
-        <script src="{{ asset('bundles/corezero/js/a.jquery.min.js') }}"></script>
-        <script src="{{ asset('bundles/corezero/js/c.bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bundles/corezero/login/js/jquery.backstretch.min.js') }}"></script>
+        <script src="{{ asset('bundles/corezero/js/login.js') }}"></script>
         <script type="text/javascript">
         jQuery(document).ready(function() {
-            $.backstretch("{{ asset('bundles/corezero/login/img/backgrounds/1.jpg') }}");
+            $.backstretch("{{ asset('bundles/corezero/img/wallpaper.jpg') }}");
 
             $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function() {
                 $(this).removeClass('input-error');
@@ -94,9 +89,5 @@
             });
         });
         </script>
-
-        <!--[if lt IE 10]>
-            <script src="{{ asset('bundles/corezero/login/js/placeholder.js') }}"></script>
-        <![endif]-->
     </body>
 </html>
