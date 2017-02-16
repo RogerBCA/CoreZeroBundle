@@ -34,44 +34,62 @@
     <button type="{{ type|default('button') }}" {{ block('button_attributes') }}><i class="fa fa-save"></i>  {{ label|trans({}, translation_domain) }}</button>
 {%- endblock button_widget -%}
 
-{% macro widget_prototype(widget, remove_text) %}
-    {% if widget.get('prototype') %}
-        {% set form = widget.get('prototype') %}
-        {% set name = widget.get('prototype').get('name') %}
-    {% else %}
-        {% set form = widget %}
-        {% set name = widget.get('full_name') %}
-    {% endif %}
+{% block collection_widget %}
+    {% spaceless %}
+        {% set qweasd = '<div class="media"><div class="col-md-5">'~form_widget(prototype)~'</div>
+            <div class="col-md-3">
+                <a href="#" class="collection-up btn btn-default" title="Move element up"><span class="fa fa-arrow-up"></span></a>
+                <a href="#" class="collection-down btn btn-default" title="Move element down"><span class="fa fa-arrow-down"></span></a>
+            </div>
+            <div class="col-md-3">
+                <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="fa fa-trash"></span></a>
+                <a href="#" class="collection-add btn btn-default" title="Add element"><span class="fa fa-plus-circle"></span></a>
+            </div>
+            <div class="col-md-1">
+                <a href="#" class="collection-duplicate btn btn-default" title="Duplicate element"><span class="fa fa-th-large"></span></a>
+            </div>
+        </div>' %}
 
-    <div data-content="{{ name }}">
-        <a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a>
-        {{ form_widget(form) }}
-    </div>
-{% endmacro %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': qweasd}) %}
+            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+        {% endif %}
 
-{%- block collection_widget -%}
-    {% if prototype is defined %}
-        {%- set attr = attr|merge({'data-prototype': form_widget(prototype) }) -%}
-    {% endif %}
-    <div {{ block('widget_attributes') }}>
-        <ul id="field-{{ id }}" class="media-list collection listado-group-{{ id }}" data-id="{{ id }}">
-            {% for i,item in form %}
-                <li class="media" id="campo-{{ id~'_'~i }}">
-                    <div class="media-body">
-                        {{ form_errors(item) }}
-                        {{ form_widget(item) }}
-                    </div>
-                    <div class="media-right">
-                        <button class="btn btn-default btn-xs close eliminar" type="button"><i class="fa fa-trash-o"></i></button>
-                        <!-- <button class="btn btn-default btn-xs close mover" type="button"><i class="fa fa-arrows"></i></button> -->
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        {{ form_errors(form) }}
-        <a href="#" class="btn btn-primary btn-sm collection-add">Agregar</a>
-    </div>
-{%- endblock collection_widget -%}
+        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ block('collection_item_widget') }}
+            {{ form_rest(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock collection_widget %}
+
+
+
+{% block collection_item_widget %}
+{% spaceless %}
+    {{ form_errors(form) }}
+    {% for child in form %}
+        <div class="media">
+            <div class="col-md-5">
+                {{ form_widget(child) }}
+            </div>
+            <div class="col-md-3">
+                <a href="#" class="collection-up btn btn-default" title="Move element up"><span class="fa fa-arrow-up"></span></a>
+                <a href="#" class="collection-down btn btn-default" title="Move element down"><span class="fa fa-arrow-down"></span></a>
+            </div>
+            <div class="col-md-3">
+                <a href="#" class="collection-remove btn btn-default" title="Delete element"><span class="fa fa-trash"></span></a>
+                <a href="#" class="collection-add btn btn-default" title="Add element"><span class="fa fa-plus-circle"></span></a>
+            </div>
+            <div class="col-md-1">
+                <a href="#" class="collection-duplicate btn btn-default" title="Duplicate element"><span class="fa fa-th-large"></span></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endspaceless %}
+{% endblock collection_item_widget %}
 
 {%- block filebrowser_widget -%}
     {% spaceless %}
