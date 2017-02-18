@@ -19,6 +19,31 @@
     {% endif %}
 {%- endblock ckeditor_widget -%}
 
+{%- block taggit_widget -%}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+    <script type="text/javascript">
+        $('#{{ id }}').select2({
+            tags: true,
+            tokenSeparators: [',']
+        });
+    </script>
+{%- endblock taggit_widget -%}
+
+{%- block choice_widget -%}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+    <script type="text/javascript">
+        $('#{{ id }}').select2();
+    </script>
+{%- endblock choice_widget -%}
+
 {%- block button_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('btn-success') ~ ' btn')|trim}) %}
     {%- if label is empty -%}
