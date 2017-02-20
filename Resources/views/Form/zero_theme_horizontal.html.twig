@@ -22,8 +22,31 @@
 {%- block taggit_widget -%}
     {% spaceless %}
         {%- set type = type|default('text') -%}
-        {% set attr = attr|merge({class: (attr.class|default('') ~ 'datamap hide form-control')|trim}) %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' hide form-control')|trim}) %}
         <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <select class="form-control select2_{{ id }}" multiple="true">
+            {% for item in value|default(',')|split(',') %}
+                {% if item != '' %}
+                <option value="{{ item|trim }}" selected="selected">{{ item|trim }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <script type="text/javascript">
+
+        $(".select2_{{ id }}").select2({
+            language: "es",
+            tags: true,
+            tokenSeparators: [',']
+        });
+        $(".select2-container--default").css('width', '100%');
+        $(".select2_{{ id }}").on('change', function(){
+            var taggit = '';
+            $(this).find('option:selected').each(function(index, el) {
+                taggit += $(this).text()+',';
+            });
+            $('#{{ id }}').val(taggit);
+        });
+        </script>
     {% endspaceless %}
 {%- endblock taggit_widget -%}
 
@@ -34,7 +57,9 @@
         {{- block('choice_widget_collapsed') -}}
     {% endif %}
     <script type="text/javascript">
-        $('#{{ id }}').select2();
+        $('#{{ id }}').select2({
+            language: "es"
+        });
     </script>
 {%- endblock choice_widget -%}
 
