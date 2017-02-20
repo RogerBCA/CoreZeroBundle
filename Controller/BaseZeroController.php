@@ -16,8 +16,57 @@ class BaseZeroController extends Controller
 {
     protected $NameModel;
     protected $ClassModel;
-    protected $Collections;
+    protected $Collections = array();
     private $OriginalCollections = array();
+
+    /**
+     * Displays a form to edit an existing entity.
+     */
+    public function unicoAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AdminBundle:'.$this->NameModel)->find(1);
+        if (!$entity) $entity = $this->ClassModel;
+        $editForm = $this->createForm('AdminBundle\Form\\'.$this->NameModel.'Type', $entity, array(
+            'action' => $this->generateUrl('zerobundle_admin_'.strtolower($this->NameModel)),
+        ));
+        $editForm->add('submit', SubmitType::class, array('label' => 'button_edit_msg_1'));
+
+        foreach ($this->Collections as $padre => $hijo) {
+            $this->OriginalCollections[$padre] = new ArrayCollection();
+
+            eval('$collectionCurrent = $entity->get'.$hijo.'();');
+
+            foreach ($collectionCurrent as $item) {
+                $this->OriginalCollections[$padre]->add($item);
+            }
+        }
+
+        $editForm->handleRequest($request);
+        $this->CollectionZero($entity);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Se ha guardado con éxito!')
+            ;
+
+            $return = ($request->query->get('ajax') == 'true') ? array('ajax'=>'true'):array();
+
+            $url = 'zerobundle_admin_'.strtolower($this->NameModel);
+
+            return $this->redirectToRoute($url, $return);
+        }
+
+        return array(
+            'entity' => $entity,
+            'form' => $editForm->createView(),
+        );
+    }
 
     /**
      * Lists all entities.
