@@ -26,8 +26,8 @@
     <script src="{{ url('zerobundle_admin_api_main_js')~version_asset }}"></script>
     <script src="{{ asset('bundles/corezero/ckeditor/ckeditor.js')~version_asset }}"></script>
     <script src="http://maps.googleapis.com/maps/api/js?key={{ zeroconfig.api_key_maps }}"></script>
-    <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
     <script src="{{ asset('bundles/corezero/js/total.js')~version_asset }}"></script>
+    <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
 
     {% for row in zeroconfig.js_externo %}
     <script src="{{ row }}"></script>

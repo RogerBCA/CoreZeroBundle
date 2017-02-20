@@ -8,19 +8,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Core\ZeroBundle\Entity\Translate;
-use Core\ZeroBundle\Form\TranslateType;
+use Core\ZeroBundle\Entity\ZeroTranslate;
+use Core\ZeroBundle\Form\ZeroTranslateType;
 
 /**
- * @Route("/admin-staff/Translate")
+ * @Route("/admin-staff/ZeroTranslate")
  */
-class TranslateController extends Controller
+class ZeroTranslateController extends Controller
 {
 
     /**
-     * Lists all Translate entities.
+     * Lists all ZeroTranslate entities.
      *
-     * @Route("/", name="zerobundle_admin_translate")
+     * @Route("/", name="zerobundle_admin_zerotranslate")
      * @Method("GET")
      * @Template()
      */
@@ -28,7 +28,7 @@ class TranslateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CoreZeroBundle:Translate')->findAll();
+        $entities = $em->getRepository('CoreZeroBundle:ZeroTranslate')->findAll();
 
         return array(
             'entities' => $entities,
@@ -38,14 +38,14 @@ class TranslateController extends Controller
     /**
      * Displays a form to edit an existing Blog entity.
      *
-     * @Route("/{id}/edit", name="zerobundle_admin_translate_edit")
+     * @Route("/{id}/edit", name="zerobundle_admin_zerotranslate_edit")
      * @Method({"GET", "POST"})
-     * @Template("CoreZeroBundle:Translate:form.html.twig")
+     * @Template("CoreZeroBundle:ZeroTranslate:form.html.twig")
      */
-    public function editAction(Request $request, Translate $entity)
+    public function editAction(Request $request, ZeroTranslate $entity)
     {
-        $editForm = $this->createForm('Core\ZeroBundle\Form\TranslateType', $entity, array(
-            'action' => $this->generateUrl('zerobundle_admin_translate_edit', array('id' => $entity->getId())),
+        $editForm = $this->createForm('Core\ZeroBundle\Form\ZeroTranslateType', $entity, array(
+            'action' => $this->generateUrl('zerobundle_admin_zerotranslate_edit', array('id' => $entity->getId())),
         ));
 
         $editForm->add('submit', SubmitType::class, array('label' => 'button_edit_msg_1'));
@@ -64,11 +64,11 @@ class TranslateController extends Controller
 
             $return = ($request->query->get('ajax') == 'true') ? array('ajax'=>'true'):array();
 
-            $url = 'zerobundle_admin_translate';
+            $url = 'zerobundle_admin_zerotranslate';
 
             if ($editForm->get('submit2')->isClicked())
             {
-                $url = 'zerobundle_admin_translate_edit';
+                $url = 'zerobundle_admin_zerotranslate_edit';
                 $return['id'] = $entity->getId();
             }
 

@@ -20,17 +20,11 @@
 {%- endblock ckeditor_widget -%}
 
 {%- block taggit_widget -%}
-    {% if expanded %}
-        {{- block('choice_widget_expanded') -}}
-    {% else %}
-        {{- block('choice_widget_collapsed') -}}
-    {% endif %}
-    <script type="text/javascript">
-        $('#{{ id }}').select2({
-            tags: true,
-            tokenSeparators: [',']
-        });
-    </script>
+    {% spaceless %}
+        {%- set type = type|default('text') -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ 'datamap hide form-control')|trim}) %}
+        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endspaceless %}
 {%- endblock taggit_widget -%}
 
 {%- block choice_widget -%}

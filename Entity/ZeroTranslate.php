@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  */
-class Translate implements Translatable
+class ZeroTranslate implements Translatable
 {
     /**
      * @ORM\Id

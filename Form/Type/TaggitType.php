@@ -3,7 +3,7 @@ namespace Core\ZeroBundle\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TaggitType extends AbstractType
 {
@@ -13,7 +13,7 @@ class TaggitType extends AbstractType
     }
     public function getParent()
     {
-        return CollectionType::class;
+        return TextType::class;
     }
     public function getBlockPrefix()
     {
