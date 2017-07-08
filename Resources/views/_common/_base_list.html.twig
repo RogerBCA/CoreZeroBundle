@@ -1,10 +1,12 @@
-{% set base_template =
+{#{% set base_template =
     (app.request.query.get('ajax') == 'true') ?
     'CoreZeroBundle:_common:_base_for_ajax.html.twig' :
     'CoreZeroBundle:_common:_base.html.twig'
     %}
 
-{% extends base_template %}
+{% extends base_template %}#}
+
+{% extends 'CoreZeroBundle:_common:_base_v2.html.twig' %}
 
 {% set ROUTER_NAME = app.request.attributes.get('_route') %}
 {% set titulo = 'Listado'%}
@@ -49,14 +51,17 @@
 </script>
 {% endblock %}
 
-{% block body -%}
-{% if entities %}
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            {% block form_content %}{% endblock %}
-        </div>
-    </div>
-</div>
-{% endif %}
+{% block page_content %}
+    {% block body -%}
+        {% if entities %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        {% block form_button %}{% endblock %}
+                        {% block form_content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
 {% endblock %}

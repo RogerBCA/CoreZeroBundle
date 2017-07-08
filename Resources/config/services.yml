@@ -1,4 +1,12 @@
 services:
+    # AdminThemeBundle config
+    app_bundle.menu_listener:
+        class: Core\ZeroBundle\Listener\SidebarListener
+        tags:
+            - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
+            # - { name: kernel.event_listener, event:theme.breadcrumb, method:onSetupMenu }
+        arguments: [ @service_container ]
+
     # KernelRequest listener
     extension.listener:
         class: Core\ZeroBundle\Listener\DoctrineExtensionListener

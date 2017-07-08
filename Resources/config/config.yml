@@ -1,0 +1,19 @@
+ivory_ck_editor:
+    configs:
+        my_config:
+            toolbar: [ ["Source", "-", "Save"], "/", ["Anchor"], "/", ["Maximize"] ]
+            uiColor:                "#000000"
+            filebrowserUploadRoute: "my_route"
+            extraPlugins:           "wordcount"
+
+zenstruck_redirect:
+    redirect_class: Core\ZeroBundle\Entity\ZeroRedirect
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: AdminBundle\Entity\Usuarios
+
+twig:
+    globals:
+        admin_skin: skin-black

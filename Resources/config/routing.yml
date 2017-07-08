@@ -3,6 +3,11 @@ zerobundle_admin:
     type:     annotation
     prefix:   /admin-staff
 
+avanzu_admin_home:
+    resource: "@AdminBundle/Controller/"
+    type:     annotation
+    prefix:   /admin-staff
+
 zerobundle_admin_security_login:
     pattern: /ingresar
     defaults: { _controller: CoreZeroBundle:Security:login }
